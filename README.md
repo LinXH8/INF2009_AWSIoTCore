@@ -3,8 +3,8 @@
 **Objective:** By the end of this session, participants will understand 
 1. Introduction to AWS IoT Core 
 2. How to create a IoT thing/device in AWS (aka RaspberryPi in our case)
-2. How to send real-time device data to AWS IoT Core and 
-3. How to ingest device data in AWS Dynamo DB via IoT rule.
+3. How to send real-time device data securely to AWS IoT Core over MQTT protocol.
+4. How to ingest device data in AWS Dynamo DB via IoT rule.
 
 ---
 
@@ -42,9 +42,9 @@ https://github.com/user-attachments/assets/ca08f3cd-ebf8-49f6-993c-31fcbd878573
 https://github.com/user-attachments/assets/2a012ca7-ffb2-4d44-b69a-df39f6491db3
 
 - **Part 5:** Once Policy is created, click on "Create thing". This will create the "thing" for you and also generate set of security files for you to download. Please download following three files from the console and save in a folder onto your computer desktop:
-  1. Device Certificate
-  2. Public Key File
-  3. Private Key File
+  1. Device Certificate > Rename to aws-certificate.pem.crt
+  2. Public Key File -> Rename to  aws-public.pem.key
+  3. Private Key File -> Rename to aws-private.pem.key
 
 https://github.com/user-attachments/assets/ac6a3ae7-f5c8-488d-a8cb-60963dc9b6b2
 
@@ -56,23 +56,41 @@ https://github.com/user-attachments/assets/df239ab3-1872-420e-b39a-50d2afb9535c
 
 https://github.com/user-attachments/assets/243d44e6-4102-41e7-8554-3417703877a4
 
+**3.Setup RaspberryPi to send any data over MQTT to IoT Core**
 
--  Set up and activate a virtual environment named "dlonedge" for this experiment (to avoid conflicts in libraries) as below:
+**In this section, we are going to use a simple python code to establish MQTT connection to AWS IoT Core and send some data to demonstrate.**
+
+-  Set up and activate a virtual environment named "awsiotcore" for this experiment (to avoid conflicts in libraries) as below:
+  
   ```bash
   sudo apt install python3-venv
-  python3 -m venv dlonedge
-  source dlonedge/bin/activate
+  python3 -m venv awsiotcore
+  source awsiotcore/bin/activate
   ```
 
-- Installing PyTorch and OpenCV:
+-  Installing paho-mqtt and psutil:
+
   ```bash
   pip install paho-mqtt
   pip install --upgrade psutil
   ```
 
-- Same as last lab, for video capture we’re going to be using OpenCV to stream the video frames. The model we are going to use in this lab is MobileNetV2, which takes in image sizes of 224x224. We are targeting 30fps for the model but we will request a slightly higher framerate of 36 fps than that so there is always enough frames and bandwidth of image pre-processing and model prediction.
+-  Next, Please download the files (.py and rootCA ) in [sample code](aws_iot_core) and save in same folder as the three security files. Your folder should look like as below screenshot:
 
-- **Part 1.** [sample code](Codes/mobile_net.py) is used to directly load pre-trained MobileNetV2 model, doing model inference and finally, Observe the fps as shown in screenshot below when run on RaspberryPi 4B. As shown, with no optimization of model, we could only achieve of 5-6 fps much below our desired target.
+ <img width="699" alt="Screenshot 2025-03-11 at 1 46 40 PM" src="https://github.com/user-attachments/assets/5ffd875a-42c0-4226-b97a-00747131bd00" />
+
+-  Now, we are ready to execute python file on RaspberryPi device. But, before that need to ensure entire folder is transferred to RaspberryPi device. You can use any filter transfer tool like winscp or even commpan line scp like below to transfer entire folder to your device.
+
+ ```bash
+  scp -r aws_iot_core <rpihostname>@<rpi_IP_address>:/path/to/home
+ ```
+
+-  Sample code](aws_iot_core/pipython.py) is used to connect establish MQTT connection. Ensure security file names mentioned in line 17 of this code matches with that of in your folder. Finally, paste your AWS IoT core endpoint in line 15. You can find endpoint in your IoT Core Consle under Connect -> Domain Configurations -> Domain Name.
+
+  ```bash
+   client.tls_set(ca_certs='./rootCA.pem', certfile='./aws-certificate.pem.crt', keyfile='./aws-private.pem.key', tls_version=ssl.PROTOCOL_SSLv23) #Line 15
+   client.connect("xxxxxxxx-ats.iot.ap-southeast-1.amazonaws.com", 8883, 60) #Line 17
+  ```
 
   ![image1](https://github.com/user-attachments/assets/8e3cf302-45f3-41c9-85a5-a1bd118d30c4)
 
