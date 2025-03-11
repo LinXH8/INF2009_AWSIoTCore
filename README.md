@@ -1,4 +1,4 @@
-**AWS IoT: Real-Time Device Data to AWS IoT Dashboard**
+**AWS IoT: Real-Time Device Data to AWS IoT Core**
 
 **Objective:** By the end of this session, participants will understand 
 1. Introduction to AWS IoT Core 
@@ -23,17 +23,19 @@
 
 **2.Setup IoT Thing aka Device in IoT Core**
 
-- **Part 1.** Let us first create thing in AWS IoT core. Thing in IoT core means any edge device and in our case it would be a raspberryPi device. Head over to your AWS console and go to IoT Core. Please ensure you have configured your aws region to Singapore i.e., _ap-southeast-1_ (You can switch region from your console top right selecton). Now, we will be creating a IoT thing of type raspberryPi as shown in below videos. Please follow and setup IoT thing as shown.
+- **Let us first create thing in AWS IoT core. Thing in IoT core means any edge device and in our case it would be a raspberryPi device. Head over to your AWS console and go to IoT Core. Please ensure you have configured your aws region to Singapore i.e., _ap-southeast-1_ (You can switch region from your console top right selecton).**
+
+- **Part 1** Within the IoT core console, go to Manage -> All Devices -> Things. Click on "Create things" and then select "_Create single thing_" (as we are only setting up one raspberryPi). Once done, click next. Please refer to below video for reference.
  
 https://github.com/user-attachments/assets/7e295f39-d728-4b97-9358-fa0d2df21b5e
 
+- **Part 2** Enter "_Thing Name_" (You can keep any name you want). Also, you should create a thing type to group all raspberryPi devices into one. Once done, click next. Please refer to below video for reference.
+
 https://github.com/user-attachments/assets/b78d9212-9613-4a52-bad0-6f70459cf56e
 
+- **Part 3** Do note to NOT use any special character like '#' in thing name. In the next screen, Please select "_Auto Generate a new Certificate_". Once done, click next. Please refer to below video for reference.
+
 https://github.com/user-attachments/assets/ca08f3cd-ebf8-49f6-993c-31fcbd878573
-
-
-
-
 
 -  Set up and activate a virtual environment named "dlonedge" for this experiment (to avoid conflicts in libraries) as below:
   ```bash
