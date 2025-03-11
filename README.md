@@ -23,7 +23,17 @@
 
 **2.Setup IoT Thing aka Device in IoT Core**
 
--  
+- **Part 1.** Let us first create thing in AWS IoT core. Thing in IoT core means any edge device and in our case it would be a raspberryPi device. Head over to your AWS console and go to IoT Core. Please ensure you have configured your aws region to Singapore i.e., _ap-southeast-1_ (You can switch region from your console top right selecton). Now, we will be creating a IoT thing of type raspberryPi as shown in below videos. Please follow and setup IoT thing as shown.
+ 
+https://github.com/user-attachments/assets/7e295f39-d728-4b97-9358-fa0d2df21b5e
+
+https://github.com/user-attachments/assets/b78d9212-9613-4a52-bad0-6f70459cf56e
+
+https://github.com/user-attachments/assets/ca08f3cd-ebf8-49f6-993c-31fcbd878573
+
+
+
+
 
 -  Set up and activate a virtual environment named "dlonedge" for this experiment (to avoid conflicts in libraries) as below:
   ```bash
