@@ -23,19 +23,39 @@
 
 **2.Setup IoT Thing aka Device in IoT Core**
 
-- **Let us first create thing in AWS IoT core. Thing in IoT core means any edge device and in our case it would be a raspberryPi device. Head over to your AWS console and go to IoT Core. Please ensure you have configured your aws region to Singapore i.e., _ap-southeast-1_ (You can switch region from your console top right selecton).**
+**Let us first create thing in AWS IoT core. Thing in IoT core means any edge device and in our case it would be a raspberryPi device. Head over to your AWS console and go to IoT Core. Please ensure you have configured your aws region to Singapore i.e., _ap-southeast-1_ (You can switch region from your console top right selecton).**
 
-- **Part 1** Within the IoT core console, go to Manage -> All Devices -> Things. Click on "Create things" and then select "_Create single thing_" (as we are only setting up one raspberryPi). Once done, click next. Please refer to below video for reference.
+- **Part 1:** Within the IoT core console, go to Manage -> All Devices -> Things. Click on "Create things" and then select "_Create single thing_" (as we are only setting up one raspberryPi). Once done, click next. Please refer to below video for reference.
  
 https://github.com/user-attachments/assets/7e295f39-d728-4b97-9358-fa0d2df21b5e
 
-- **Part 2** Enter "_Thing Name_" (You can keep any name you want). Also, you should create a thing type to group all raspberryPi devices into one. Once done, click next. Please refer to below video for reference.
+- **Part 2:** Enter "_Thing Name_" (You can keep any name you want). Also, you should create a thing type to group all raspberryPi devices into one. Once done, click next. Please refer to below video for reference.
 
 https://github.com/user-attachments/assets/b78d9212-9613-4a52-bad0-6f70459cf56e
 
-- **Part 3** Do note to NOT use any special character like '#' in thing name. In the next screen, Please select "_Auto Generate a new Certificate_". Once done, click next. Please refer to below video for reference.
+- **Part 3:** Do note to NOT use any special character like '#' in thing name. In the next screen, Please select "_Auto Generate a new Certificate_". Once done, click next. Please refer to below video for reference.
 
 https://github.com/user-attachments/assets/ca08f3cd-ebf8-49f6-993c-31fcbd878573
+
+- **Part 4:** Next, before finish creating "_Thing_", we need to create IoT policy to grant certain permissions to AWS IoT resources. For demonstration purpose, we are going to give permissions to all actions and resources (using wildcard operator '*') but in practice, you must only give those permissions, which are required. Please refer to below video for reference.
+
+https://github.com/user-attachments/assets/2a012ca7-ffb2-4d44-b69a-df39f6491db3
+
+- **Part 5:** Once Policy is created, click on "Create thing". This will create the "thing" for you and also generate set of security files for you to download. Please download following three files from the console and save in a folder onto your computer desktop:
+  1. Device Certificate
+  2. Public Key File
+  3. Private Key File
+
+https://github.com/user-attachments/assets/ac6a3ae7-f5c8-488d-a8cb-60963dc9b6b2
+
+- **Part 6:** Once you have downloaded and saved all the three security files, click Done and you can now see the created "IoT Thing" under Manage -> All Devices -> Things. Next, go to Manage -> Security -> Certificates to view the certificate(s) IoT core created in previous step.
+
+https://github.com/user-attachments/assets/df239ab3-1872-420e-b39a-50d2afb9535c
+
+- **Part 7:** Next, we are going to attached certificate to our IoT Thing and already created IoT policy as shown below.
+
+https://github.com/user-attachments/assets/243d44e6-4102-41e7-8554-3417703877a4
+
 
 -  Set up and activate a virtual environment named "dlonedge" for this experiment (to avoid conflicts in libraries) as below:
   ```bash
